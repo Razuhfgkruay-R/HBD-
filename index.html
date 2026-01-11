@@ -1,36 +1,278 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Untuk Kamu</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matcha Luxury 🍵</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --matcha-dark:#4b5d26;
+  --matcha-mid:#88a05b;
+  --matcha-soft:#cbd9ad;
+  --cream:#f9fbf2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--cream);
+  font-family:'Outfit',sans-serif;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  perspective:2000px;
+}
+
+/* DECOR */
+.leaf-bg{
+  position:absolute;
+  font-size:2rem;
+  opacity:.5;
+  filter:blur(1px);
+  user-select:none;
+  z-index:1;
+}
+
+/* CARD */
+.glass-card{
+  background:rgba(255,255,255,.4);
+  backdrop-filter:blur(15px);
+  padding:40px;
+  border-radius:30px;
+  text-align:center;
+  z-index:10;
+  box-shadow:0 20px 50px rgba(75,93,38,.1);
+}
+
+/* ENVELOPE */
+.envelope-container{
+  position:relative;
+  width:300px;
+  height:180px;
+  margin:30px auto;
+  display:none;
+  cursor:pointer;
+  transform-style:preserve-3d;
+  overflow:hidden; /* AWALNYA DISEMBUNYIKAN */
+}
+
+.envelope-base{
+  position:absolute;
+  inset:0;
+  background:var(--matcha-mid);
+  border-radius:0 0 15px 15px;
+  z-index:2;
+}
+
+.envelope-base::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--matcha-soft);
+  clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);
+  z-index:5;
+}
+
+.flap{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:100px;
+  background:var(--matcha-dark);
+  clip-path:polygon(0 0,50% 100%,100% 0);
+  transform-origin:top;
+  border-radius:10px 10px 0 0;
+  z-index:6;
+}
+
+/* LETTER */
+.letter{
+  position:absolute;
+  left:10px;
+  right:10px;
+  bottom:10px;
+  height:160px;
+  background:white;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  box-shadow:inset 0 0 10px rgba(0,0,0,.05);
+  z-index:3;
+
+  /* DISIMPAN DI DALAM */
+  transform:translateY(120%) scale(.9);
+}
+
+.letter p{
+  font-family:'Dancing Script',cursive;
+  font-size:1.3rem;
+  color:var(--matcha-dark);
+}
+
+/* PAGE 2 */
+#page2{
+  position:fixed;
+  inset:0;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:var(--cream);
+  z-index:100;
+}
+
+.photo-reveal{
+  width:300px;
+  height:400px;
+  background:white;
+  padding:15px;
+  box-shadow:0 30px 60px rgba(0,0,0,.15);
+  transform:scale(.5);
+  opacity:0;
+}
+
+.photo-reveal img{
+  width:100%;
+  height:85%;
+  background:#eee;
+  object-fit:cover;
+}
+
+.photo-reveal .caption{
+  height:15%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Dancing Script',cursive;
+  font-size:1.5rem;
+  color:var(--matcha-dark);
+}
+
+/* BUTTON */
+.btn-premium{
+  background:var(--matcha-dark);
+  color:white;
+  border:none;
+  padding:15px 40px;
+  border-radius:100px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+.btn-premium:hover{
+  letter-spacing:2px;
+}
+</style>
 </head>
 <body>
 
-  <!-- Tombol Awal -->
-  <button id="maafBtn" class="btn">Maaf</button>
+<div id="leaves-container"></div>
 
-  <!-- Amplop -->
-  <div class="envelope-container hidden">
-    <img src="img/envelope.png" class="envelope" id="envelope">
+<div class="glass-card" id="page1">
+  <h1 id="main-title" style="color:var(--matcha-dark);font-size:2.5rem;margin-bottom:20px">
+    For You Syifa...
+  </h1>
+  <button class="btn-premium" id="startBtn">Open Message</button>
 
-    <!-- Surat -->
-    <div class="letter">
-      <h2>Hai Kamu 🤍</h2>
-      <p>
-        Maaf ya kalau selama ini aku sering bikin kamu kesel,
-        semoga surat kecil ini bisa bikin kamu senyum 🙂
-      </p>
+  <div class="envelope-container" id="envelope">
+    <div class="flap" id="flap"></div>
+
+    <div class="letter" id="letter">
+      <p>Happy Birthday 🍵<br>Siti Nusrasysyfa</p>
+      <p style="font-size:.9rem;font-family:'Outfit'">Click the heart</p>
+      <span id="nextBtn" style="font-size:2rem;cursor:pointer">💚</span>
     </div>
 
-    <!-- Foto -->
-    <img src="img/photo1.jpg" class="photo left">
-    <img src="img/photo2.jpg" class="photo right">
+    <div class="envelope-base"></div>
   </div>
+</div>
 
-  <!-- Next Button -->
-  <button id="nextBtn" class="btn hidden">coba pencet</button>
+<div id="page2">
+  <div class="photo-reveal" id="photoCard">
+    <img src="syifa.jpg">
+    <div class="caption">Happy Sweet 17th SYIFA</div>
+  </div>
+  <h2 id="final-text" style="opacity:0;color:var(--matcha-dark);margin-top:20px">
+    SEMOGA SELALU DIBERIKAN <br> YANG TERBAIK✨
+  </h2>
+</div>
 
-  <script src="script.js"></script>
+<script>
+/* FLOATING DECOR */
+(()=>{
+  const c=document.getElementById('leaves-container');
+  ['🍃','🍵','🌿','✨'].forEach(()=>{});
+  for(let i=0;i<15;i++){
+    const d=document.createElement('div');
+    d.className='leaf-bg';
+    d.textContent=['🍃','🍵','🌿','✨'][Math.floor(Math.random()*4)];
+    d.style.left=Math.random()*100+'vw';
+    d.style.top=Math.random()*100+'vh';
+    c.appendChild(d);
+    gsap.to(d,{
+      x:'random(-100,100)',
+      y:'random(-100,100)',
+      rotation:'random(0,360)',
+      duration:'random(3,6)',
+      repeat:-1,
+      yoyo:true,
+      ease:'sine.inOut'
+    });
+  }
+})();
+
+/* START */
+startBtn.onclick=()=>{
+  gsap.to('#startBtn',{opacity:0,y:20,duration:.5});
+  gsap.to('#main-title',{opacity:.5,scale:.8,duration:.5});
+  envelope.style.display='block';
+  gsap.from(envelope,{scale:0,rotationY:180,duration:1.2,ease:'back.out(1.7)'});
+};
+
+/* OPEN ENVELOPE */
+let opened=false;
+envelope.onclick=(e)=>{
+  if(opened || e.target.id==='nextBtn') return;
+  opened=true;
+
+  gsap.timeline()
+    .to('#flap',{rotateX:180,duration:.7,ease:'power2.inOut'})
+    .set('#envelope',{overflow:'visible'}) /* FIX UTAMA */
+    .to('#letter',{
+      transform:'translateY(-70%) scale(1.05)',
+      duration:1.2,
+      zIndex:20,
+      ease:'elastic.out(1,.7)'
+    });
+};
+
+/* NEXT PAGE */
+nextBtn.onclick=(e)=>{
+  e.stopPropagation();
+
+  gsap.timeline()
+    .to('.glass-card',{opacity:0,scale:2,filter:'blur(20px)',duration:1})
+    .set('#page2',{display:'flex'})
+    .to('#photoCard',{opacity:1,scale:1,duration:1.5,ease:'expo.out'})
+    .to('#final-text',{opacity:1,y:-10,duration:1},"-=.5");
+
+  confetti({
+    particleCount:200,
+    spread:100,
+    origin:{y:.7},
+    colors:['#4b5d26','#88a05b','#ffffff']
+  });
+};
+</script>
+
 </body>
 </html>
