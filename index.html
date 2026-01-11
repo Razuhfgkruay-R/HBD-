@@ -1,25 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
+  <title>Happy 17th Birthday 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ucapan Ulang Tahun</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="envelope">
+
+<div class="container">
+
+  <div class="envelope" id="envelope">
     <div class="flap"></div>
-    <div class="body"></div>
-    <div class="message hidden">
-      <h2>Barakallah fii umrik, Syifa!</h2>
-      <p>Semoga Syifa selalu dalam perlindungan Allah SWT.</p>
-      <p>Semoga urusan-urusannya dilancarkan dan dimudahkan.</p>
-      <p>Semoga dengan bertambahnya usiamu, bertambah juga rezekinya, bertambah pengalaman yang baiknya.</p>
-      <p>Semoga tahun ini wish list kamu tercapai.</p>
-      <p>Semoga panjang umur, dan mendapatkan yang terbaik ya di tahun ini.</p>
-      <p><strong>Aamiin</strong></p>
+
+    <div class="letter">
+      <h2>Barakallah fii umrik, Syifa 💖</h2>
+      <p>Semoga selalu dalam perlindungan Allah SWT.</p>
+      <p>Dimudahkan urusannya & dilancarkan rezekinya.</p>
+      <p>Semoga wish list tahun ini tercapai ✨</p>
+      <p><b>Aamiin 🤍</b></p>
+
+      <div class="photos">
+        <img src="foto1.jpg" alt="foto 1">
+        <img src="foto2.jpg" alt="foto 2">
+      </div>
+
+      <button id="cakeBtn">🎂 Lihat Kue</button>
     </div>
   </div>
-  <script src="script.js"></script>
+
+  <div class="cake hidden" id="cake">
+    <div class="candles">
+      <div class="candle">1</div>
+      <div class="candle">7</div>
+    </div>
+    <div class="cake-body"></div>
+    <p>Tiup lilinnya ya 🎉</p>
+  </div>
+
+</div>
+
+<!-- MUSIK -->
+<audio id="birthdayMusic" loop>
+  <source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti"></canvas>
+
+<script src="script.js"></script>
 </body>
 </html>
