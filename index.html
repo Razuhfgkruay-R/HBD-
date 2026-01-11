@@ -171,6 +171,19 @@ body{
 .btn-premium:hover{
   letter-spacing:2px;
 }
+
+/* ===== WATERMARK ===== */
+    .wm {
+      position: fixed;
+      font-family: 'Poppins', sans-serif;
+      font: bold;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      color: #999;
+      pointer-events: none;
+    }
 </style>
 </head>
 <body>
@@ -273,6 +286,9 @@ nextBtn.onclick=(e)=>{
   });
 };
 </script>
+
+<!-- ===== WATERMARK ===== -->
+  <div class="wm">Dari Razani Untuk Kamu</div>
 
 </body>
 </html>
